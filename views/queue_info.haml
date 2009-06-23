@@ -1,0 +1,31 @@
+!!! XML
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml", 'xml:lang' => "en", :lang => "en"}
+  %head
+    %title
+      SQS Queue name: 
+      = queue_name
+  %body
+    %h3
+      SQS Queue name: 
+      = queue_name
+
+    %p
+      Approximate number of messages in queue: 
+      = queue_info[:num_messages]
+
+    %p
+      Visibility timeout:
+      = queue_info[:visibility_timeout]
+
+    %p
+      Queue a new message:
+    %form{:method => "POST"}
+      %p
+        Send message:
+        %br/
+        %textarea{:name => "message_body", :cols => "80", :rows => "20"}
+
+      %p
+        %input{:type => "submit"}
+

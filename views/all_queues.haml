@@ -1,0 +1,13 @@
+!!! XML
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml", 'xml:lang' => "en", :lang => "en"}
+  %head
+    %title
+      SQS Queues
+  %body
+    %h3
+      SQS Queues:
+
+    - queue_urls.each do |url|
+      = url
+      %br/
