@@ -1,5 +1,5 @@
 #!/usr/bin/env rackup -Ilib:../lib -s thin
 
-require 'lib/sqs_accelerator'
+require 'lib/server'
 
 run SqsAccelerator::Server.new

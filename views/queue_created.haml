@@ -1,0 +1,17 @@
+!!! XML
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml", 'xml:lang' => "en", :lang => "en"}
+  %head
+    %title
+      Queue
+      = "\"#{queue_name}\""
+      created
+  %body
+    %p
+      Queue
+      = "\"#{queue_name}\""
+      created.
+    %p
+      %a{:href => "/queues/#{queue_name}"}
+        Continue
+

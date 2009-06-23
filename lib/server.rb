@@ -1,7 +1,13 @@
 require "em-http"
-require "sqs_helper"
-require "sqs_proxy"
+require "haml"
+require "logger"
+require "pp"
+require "sinatra/async"
 require "xml"
+
+require "#{File.dirname(__FILE__)}/sqs_accelerator"
+require "#{File.dirname(__FILE__)}/sqs_helper"
+require "#{File.dirname(__FILE__)}/sqs_proxy"
 
 class SqsAccelerator::Server < Sinatra::Base  
   register Sinatra::Async
@@ -81,7 +87,10 @@ class SqsAccelerator::Server < Sinatra::Base
     operation = proc do
       sqs = SqsAccelerator::SqsProxy.new(aws_access_key_id, aws_secret_access_key, :logger => logger)
       sqs.create_queue(queue_name, visibility_timeout)
-      redirect "/queues/#{queue_name}"
+      # TODO check the result and return an error unless success
+      # TODO set Location header field with URI
+      response.status = 201 # "Created": http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+      body haml :queue_created, :locals => { :queue_name => queue_name }
     end
     EM.defer(operation)    
   end
@@ -121,7 +130,9 @@ class SqsAccelerator::Server < Sinatra::Base
     end
     
     # Messaage seems to be OK, return a response immediately then send message to SQS
+    response.status = 202 # "Accepted": http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
     body "Message will be queued, check log for errors.\n"
+    # TODO generate and return a message id then log that with the SQS message id?
     
     request_hash = generate_request_hash("SendMessage", :message => message_body)
     # build the body string ourselves for now until Ilya's gem gets updated because of the content-length bug

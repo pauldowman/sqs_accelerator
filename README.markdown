@@ -5,7 +5,7 @@ SQS Accelerator
 
 _WARNING: this is totally experimental right now! It's just an idea I'm playing with and I'm trying to see if it works. (But please try it out and tell me what you think!)_
 
-This is a simple evented server (using [Event Machine](http://eventmachine.rubyforge.org)) that proxies requests to Amazon's [Simple Queue Service](http://aws.amazon.com/sqs/) hosted queue. It's purpose is to queue messages very quickly, because otherwise SQS is too slow to use from within a web app (to be precise, the time it takes to queue a message is often too long).
+This is a simple and scalable event-driven server (using [Event Machine](http://eventmachine.rubyforge.org)) that proxies requests to Amazon's [Simple Queue Service](http://aws.amazon.com/sqs/) hosted queue. It's purpose is to queue messages very quickly, because otherwise SQS is too slow to use from within a web app (to be precise, the time it takes to queue a message is often too long).
 
 It provides a simple RESTful interface for interacting with SQS that's also convenient to use from a browser.
 
