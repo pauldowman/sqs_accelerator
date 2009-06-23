@@ -16,7 +16,8 @@ class SqsAccelerator::SqsProxy
   end
   
   def get_queue_info(queue_name)
-    queue = @sqs.queue(queue_name)
+    # TODO do something smart if the queue doesn't exist
+    queue = @sqs.queue(queue_name, false)
     queue_info = {
       :num_messages => queue.size,
       :visibility_timeout => queue.visibility

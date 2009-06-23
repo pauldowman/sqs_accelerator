@@ -86,7 +86,7 @@ class SqsAccelerator::Server < Sinatra::Base
     EM.defer(operation)    
   end
   
-  # Get info on a queue and check credentials
+  # Get info on a queue. Doesn't create the queue if it doesn't exist
   aget '/queues/:queue_name' do
     deny and return unless authorized?
   

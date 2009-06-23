@@ -3,7 +3,7 @@ SQS Accelerator
 
 [http://github.com/pauldowman/sqs_accelerator](http://github.com/pauldowman/sqs_accelerator)
 
-WARNING: this is totally experimental right now! It's just an idea I'm playing with and I'm trying to see if it works. (But please try it out and tell me what you think!)
+_WARNING: this is totally experimental right now! It's just an idea I'm playing with and I'm trying to see if it works. (But please try it out and tell me what you think!)_
 
 This is a simple evented server (using [Event Machine](http://eventmachine.rubyforge.org)) that proxies requests to Amazon's [Simple Queue Service](http://aws.amazon.com/sqs/) hosted queue. It's purpose is to queue messages very quickly, because otherwise SQS is too slow to use from within a web app (to be precise, the time it takes to queue a message is often too long).
 
@@ -47,6 +47,7 @@ Usage instructions
 * Run sqs_accelerator.ru
 * Hit [http://localhost:9292/](http://localhost:9292/) in a browser
   * Make an HTTP GET request to /queues to list all queues
+  * Make an HTTP POST request to /queues with queue_name=newqueue to create a queue named newqueue
   * Make an HTTP GET request to /queues/queuename to show info about a queue named "queuename" and to give a form to send a message
   * Make an HTTP POST request to /queues/queuename to send a message
   * Use your SQS credentials for HTTP auth  

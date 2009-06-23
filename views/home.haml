@@ -12,7 +12,12 @@
     TODO more detail and links here
     %ul
       %li
-        Make an HTTP GET request to /queues to list all queues
+        Make an HTTP GET request to 
+        %a{:href => "/queues"}
+          \/queues
+        to list all queues
+      %li
+        Make an HTTP POST request to /queues with queue_name=newqueue to create a queue named newqueue
       %li
         Make an HTTP GET request to /queues/queuename to show info about a queue named "queuename" and to give a form to send a message
       %li
