@@ -23,21 +23,21 @@ It runs as a daemon, if it's accepting queued messages from a web app one instan
 FAQ
 ------
 
-Q: Won't lots of messages build up inside SQS Accelerator since it receives them faster than it sends them to SQS?
+__Q: Won't lots of messages build up inside SQS Accelerator since it receives them faster than it sends them to SQS?__
 
-_A: No, but you might get errors if you hit the maximum number of open connections (not sure what this limit is yet, but it should be very high with EventMachine). SQS has high latency, but it can accept a virtually unlimited number of incoming connections, so if you can hold a large number of open connections to it then your throughput can be very high. Because an evented client can hold a large number of open connections it can maintain a very high throughput._
+A: No, but you might get errors if you hit the maximum number of open connections (not sure what this limit is yet, but it should be very high with EventMachine). SQS has high latency, but it can accept a virtually unlimited number of incoming connections, so if you can hold a large number of open connections to it then your throughput can be very high. Because an evented client can hold a large number of open connections it can maintain a very high throughput.
 
-Q: Isn't this like queueing messages locally before queueing them in SQS?
+__Q: Isn't this like queueing messages locally before queueing them in SQS?__
 
-_A: No, it's more like a proxy than a queue, the messages don't build up inside SQS Accelerator, they are all being sent to SQS concurrently._ 
+A: No, it's more like a proxy than a queue, the messages don't build up inside SQS Accelerator, they are all being sent to SQS concurrently.
 
-Q: Why not just use a local queue?
+__Q: Why not just use a local queue?__
 
-_A: You could do that instead of using SQS. But SQS is simple and scalable, and it's also simple and scalable to run an instance of SQS Accelerator on each app server._
+A: You could do that instead of using SQS. But SQS is simple and scalable, and it's also simple and scalable to run an instance of SQS Accelerator on each app server.
 
-Q: Are you sure about all this?
+__Q: Are you sure about all this?__
 
-_A: Not yet, it's just a theory so far, my next priority is to benchmark this and make sure it really works as it should in theory._
+A: Not yet, it's just a theory so far, my next priority is to benchmark this and make sure it really works as it should in theory.
 
 
 Usage instructions
@@ -46,7 +46,11 @@ Usage instructions
 * Install this gem
 * Run sqs_accelerator.ru
 * Hit [http://localhost:9292/](http://localhost:9292/) in a browser
-* TODO improve this
+  * Make an HTTP GET request to /queues to list all queues
+  * Make an HTTP GET request to /queues/queuename to show info about a queue named "queuename" and to give a form to send a message
+  * Make an HTTP POST request to /queues/queuename to send a message
+  * Use your SQS credentials for HTTP auth  
+* TODO improve these instructions
 
 
 Thanks to the following great projects
@@ -68,7 +72,7 @@ Still to do
 * Use SSL when connecting to SQS to protect message content (AWS credentials are never sent, they're just used to sign the message)
 * Unit tests (I'm just trying to figure out if this idea even works first)
 * Create a Ruby client library
-* Switch all actions to use evented HTTP client instead of EM.defer. Right now some actions are using EM.defer to use the RightAWS client in a thread. These actions will be less scalable. Sending messages, the most important action, _is_ using the evented client. This means making direct HTTP requests to the [SQS Query API]
+* Switch all actions to use evented HTTP client instead of EM.defer. Right now some actions are using EM.defer to use the RightAWS client in a thread. These actions will be less scalable. Sending messages, the most important action, _is_ using the evented client. This means making direct HTTP requests to the [SQS Query API](http://docs.amazonwebservices.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/)
 * Fix bugs and make it nicer.
 * Refactor all the SQS stuff out of the actions
 * Some configuration options
