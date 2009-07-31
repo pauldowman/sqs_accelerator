@@ -78,4 +78,4 @@ Still to do
 * Daemonize the executable
 * A [god](http://god.rubyforge.org/) config file?
 * Some configuration options
-
+* More queue management features (e.g. an action to delete a queue, all_queues should link to each queue, provide check-box to delete the queue, etc.)
