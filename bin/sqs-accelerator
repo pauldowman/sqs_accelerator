@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require "fileutils"
+
+root_dir = File.join(File.dirname(__FILE__), "..")
+
+# TODO daemonize
+FileUtils.cd root_dir do
+  result = system "./sqs_accelerator.ru"
+  raise("error, process exited with status #{$?.exitstatus}") unless result
+end

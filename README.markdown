@@ -43,8 +43,8 @@ A: Not yet, it's just a theory so far, my next priority is to benchmark this and
 Usage instructions
 ------------------
 
-* Install this gem
-* Run sqs_accelerator.ru
+* sudo gem install pauldowman-sqs_accelerator
+* run the executable "sqs-accelerator"
 * Hit [http://localhost:9292/](http://localhost:9292/) in a browser
   * Make an HTTP GET request to /queues to list all queues
   * Make an HTTP POST request to /queues with queue_name=newqueue to create a queue named newqueue
@@ -69,12 +69,13 @@ Still to do
 
 * Find all the TODO comments in the code
 * Benchmarking
-* A command to start and stop the daemon, maybe a [god](http://god.rubyforge.org/) config file
 * Use SSL when connecting to SQS to protect message content (AWS credentials are never sent, they're just used to sign the message)
 * Unit tests (I'm just trying to figure out if this idea even works first)
 * Create a Ruby client library
 * Switch all actions to use evented HTTP client instead of EM.defer. Right now some actions are using EM.defer to use the RightAWS client in a thread. These actions will be less scalable. Sending messages, the most important action, _is_ using the evented client. This means making direct HTTP requests to the [SQS Query API](http://docs.amazonwebservices.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/)
 * Fix bugs and make it nicer.
 * Refactor all the SQS stuff out of the actions
+* Daemonize the executable
+* A [god](http://god.rubyforge.org/) config file?
 * Some configuration options
 
