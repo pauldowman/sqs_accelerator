@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# This script uses "ab" (the Apache benchmark tool) to benchmark sending 
+# messages using an sqs_accelerator running locally.
+#
+# It runs for two minutes, use control-c to quit early.
+
+AWS_ACCESS_KEY_ID=$1
+AWS_SECRET_ACCESS_KEY=$2
+
+if [ -z "$AWS_ACCESS_KEY_ID" -o -z "$AWS_SECRET_ACCESS_KEY" ] ; then
+  echo "usage: benchmark-sqs-accelerator <aws_access_key> <aws_secret_access_key_id>"
+  exit 1
+fi
+
+URL=http://127.0.0.1:9292/queues/test
+POST_DATA_FILE="`dirname $0`/post-data"
+
+ab -A "$1:$2" -t 120 -c 10 -p "$POST_DATA_FILE" -T application/x-www-form-urlencoded "$URL"
