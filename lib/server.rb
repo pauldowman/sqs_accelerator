@@ -125,7 +125,7 @@ class SqsAccelerator::Server < Sinatra::Base
     if message_body.size > SqsAccelerator::SqsHelper::MAX_MESSAGE_SIZE
       logger.error "Message is too large, rejecting."
       response.status = 413 # "Request Entity Too Large": http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
-      body "Message must be less than SqsAccelerator::SqsHelper::MAX_MESSAGE_SIZE bytes"
+      body "Message must be less than #{SqsAccelerator::SqsHelper::MAX_MESSAGE_SIZE} bytes"
       return
     end
     
